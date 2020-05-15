@@ -17,8 +17,10 @@ class App extends Component {
     const response = await axios.get(
       `https://dictionaryapi.com/api/v3/references/collegiate/json/${text}?key=${process.env.REACT_APP_WEBSTER_DICTIONARY_CLIENT_ID}`
     );
+
     const definitions = response.data.map(def => def.shortdef);
-    console.log(definitions);
+
+    console.log(response.data);
     this.setState({ definitions });
   };
   render() {
@@ -26,7 +28,9 @@ class App extends Component {
       <div>
         <SearchDictionary searchWord={this.searchWord} />
         {this.state.definitions.map(def => {
-          return <p key={Math.random()}>{def}</p>;
+          return def.map(def => {
+            return <p key={Math.random()}>{def}</p>;
+          });
         })}
       </div>
     );
