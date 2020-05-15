@@ -25,12 +25,22 @@ class App extends Component {
   };
   render() {
     return (
-      <div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}
+      >
         <SearchDictionary searchWord={this.searchWord} />
         {this.state.definitions.map(def => {
-          return def.map(def => {
-            return <p key={Math.random()}>{def}</p>;
-          });
+          return def === undefined ? (
+            <p>word does not exit</p>
+          ) : (
+            def.map(def => {
+              return <p key={Math.random()}>{def}</p>;
+            })
+          );
         })}
       </div>
     );
