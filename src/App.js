@@ -28,6 +28,7 @@ class App extends Component {
       this.setState({ definitions, word: text });
     } catch (error) {
       console.log("Something went wrong", error);
+      this.setState({ definitions: [] });
     }
   };
   render() {
@@ -43,17 +44,14 @@ class App extends Component {
         <p>
           <strong>The defintions of {this.state.word} are:</strong>
         </p>
-        {this.state.definitions.length === 0 ? (
+        {this.state.definitions.includes(undefined) ||
+        this.state.definitions.length === 0 ? (
           <p>{this.state.word} not found</p>
         ) : (
           this.state.definitions.map(def => {
-            return def === undefined ? (
-              <p key={Math.random()}>{this.state.word} not found</p>
-            ) : (
-              def.map(def => {
-                return <p key={Math.random()}>{def}</p>;
-              })
-            );
+            return def.map(def => {
+              return <p key={Math.random()}>{def}</p>;
+            });
           })
         )}
       </div>
